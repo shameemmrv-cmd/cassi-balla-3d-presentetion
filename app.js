@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
+    const planWrapper = document.querySelector('.plan-wrapper');
     let currentIdx = 1;
     const totalImages = 18;
 
@@ -25,12 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const openGallery = (startIdx = 1) => {
         updateGallery(startIdx);
-        galleryModal.style.display = 'flex';
-        setTimeout(() => galleryModal.classList.add('active'), 10);
+        
+        // --- Deep Dive Transition ---
+        if (planWrapper) planWrapper.classList.add('diving');
+        
+        setTimeout(() => {
+            galleryModal.style.display = 'flex';
+            setTimeout(() => galleryModal.classList.add('active'), 10);
+        }, 150); // Slight delay to feel the "dive" start
     };
 
     const closeGalleryHandler = () => {
         galleryModal.classList.remove('active');
+        
+        // --- End Deep Dive ---
+        if (planWrapper) planWrapper.classList.remove('diving');
+        
         setTimeout(() => galleryModal.style.display = 'none', 500);
     };
 
