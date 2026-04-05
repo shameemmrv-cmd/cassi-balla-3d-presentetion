@@ -298,8 +298,7 @@ h1, h2, h3 {
     opacity: 1;
 }
 
-/* --- Watermark Section --- */
-.watermark-section {
+.watermark-section#intro {
     background: url('image/section.png') no-repeat center center;
     background-size: cover;
     position: relative;
@@ -307,6 +306,94 @@ h1, h2, h3 {
     align-items: flex-end;
     justify-content: flex-end;
     padding: 60px;
+    overflow: hidden;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+    /* 3D Parallax Variables */
+    transform: rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+}
+
+/* Blueprint Scanner Line */
+.scanner-line {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.2);
+    z-index: 15;
+    animation: scanReveal 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+}
+
+@keyframes scanReveal {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* Volumetric Dust Overlay */
+.dust-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.2) 100%);
+}
+
+/* Architectural Tags */
+.arch-tag {
+    position: absolute;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: tagFloat 4s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.arch-tag.t1 { top: 45%; left: 55%; animation-delay: 0s; }
+.arch-tag.t2 { top: 35%; left: 30%; animation-delay: -1s; }
+.arch-tag.t3 { top: 70%; left: 65%; animation-delay: -2s; }
+.arch-tag.t4 { top: 25%; left: 45%; animation-delay: -3s; }
+
+.tag-marker {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,255,255,1);
+}
+
+.tag-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(transparent, rgba(255,255,255,0.4));
+}
+
+.tag-label {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 0.65rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+@keyframes tagFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
 }
 
 .watermark-text {
@@ -317,6 +404,7 @@ h1, h2, h3 {
     font-weight: 400;
     pointer-events: none;
     z-index: 10;
+    position: relative; /* Ensure it stays above background but not blocked by dust */
 }
 
 /* --- Scroll Arrows --- */
