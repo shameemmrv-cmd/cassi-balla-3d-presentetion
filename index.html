@@ -6,6 +6,99 @@
     <title>Casa Bella Interiors | Premium Architectural Presentation</title>
     <meta name="description" content="Casa Bella Interiors - High-end interior design and architectural presentation. Explore our interactive ground floor plan and luxury perspective views.">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- NUCLEAR MOBILE OVERRIDES (index.html) --- */
+        @media screen and (max-width: 768px) {
+            /* PAGE 1: HERO VIDEO LETTERBOX */
+            .hero {
+                background: #000 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100vh !important;
+                width: 100vw !important;
+                overflow: hidden !important;
+            }
+            .hero-video {
+                position: relative !important;
+                width: 100% !important;
+                height: auto !important;
+                max-width: 100vw !important;
+                max-height: 100vh !important;
+                object-fit: contain !important;
+                top: unset !important;
+                left: unset !important;
+                transform: none !important;
+                min-width: 0 !important;
+                min-height: 0 !important;
+                display: block !important;
+            }
+            .hero-content {
+                position: absolute !important;
+                bottom: 15% !important;
+                left: 0 !important;
+                width: 100% !important;
+                z-index: 10 !important;
+            }
+
+            /* PAGE 2: INTRO 3D MODEL SYNCHRONIZATION */
+            .watermark-section#intro {
+                background: #000 !important;
+                height: 100vh !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            .intro-render-wrapper {
+                position: relative !important;
+                width: 100vw !important;
+                height: auto !important; /* Forces image-based height */
+                display: block !important;
+                margin: 0 !important;
+                line-height: 0 !important;
+            }
+            .intro-render-img {
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+            }
+
+            /* PAGE 3: FLOOR PLAN FITTING (NO SCROLL) */
+            .plan-section {
+                height: auto !important;
+                min-height: 100vh !important;
+                padding: 20px 0 !important;
+                display: block !important;
+            }
+            .plan-interactive-container {
+                width: 100vw !important;
+                padding: 10px !important;
+                overflow: hidden !important; /* Force fit, no scroll */
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            .plan-wrapper {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                height: auto !important;
+                transform: none !important;
+                margin: 0 auto !important;
+            }
+            .plan-img {
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                object-fit: contain !important;
+            }
+            .camera-marker {
+                width: 40px !important;
+                height: 40px !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -29,29 +122,34 @@
 
     <!-- New Section 1.5: Immersive Intro with Blueprint & 3D Model -->
     <section class="section watermark-section" id="intro">
-        <!-- Volumetric Dust Particles -->
-        <div class="dust-overlay"></div>
+        <!-- Main Relative Wrapper for the 3D Model & Tags -->
+        <div class="intro-render-wrapper">
+            <img src="image/section.png" alt="Architectural Render" class="intro-render-img">
+            
+            <!-- Volumetric Dust Particles (Now within wrapper) -->
+            <div class="dust-overlay"></div>
 
-        <!-- Floating Architectural Tags (Sequential Staggered Reveal) -->
-        <div class="arch-tag t1">
-            <div class="tag-marker"></div>
-            <div class="tag-line"></div>
-            <div class="tag-label">TV UNIT AREA</div>
-        </div>
-        <div class="arch-tag t2">
-            <div class="tag-marker"></div>
-            <div class="tag-line"></div>
-            <div class="tag-label">DINING AREA</div>
-        </div>
-        <div class="arch-tag t3">
-            <div class="tag-marker"></div>
-            <div class="tag-line"></div>
-            <div class="tag-label">ENTRANCE</div>
-        </div>
-        <div class="arch-tag t4">
-            <div class="tag-marker"></div>
-            <div class="tag-line"></div>
-            <div class="tag-label">MAJLIS</div>
+            <!-- Floating Architectural Tags (Now relative to the image) -->
+            <div class="arch-tag t1">
+                <div class="tag-marker"></div>
+                <div class="tag-line"></div>
+                <div class="tag-label">TV UNIT AREA</div>
+            </div>
+            <div class="arch-tag t2">
+                <div class="tag-marker"></div>
+                <div class="tag-line"></div>
+                <div class="tag-label">DINING AREA</div>
+            </div>
+            <div class="arch-tag t3">
+                <div class="tag-marker"></div>
+                <div class="tag-line"></div>
+                <div class="tag-label">ENTRANCE</div>
+            </div>
+            <div class="arch-tag t4">
+                <div class="tag-marker"></div>
+                <div class="tag-line"></div>
+                <div class="tag-label">MAJLIS</div>
+            </div>
         </div>
 
         <div class="watermark-text">CASA BELLA</div>
@@ -60,6 +158,7 @@
             <span></span>
         </a>
     </section>
+
 
     <!-- Section 1: Interactive Plan (Plan) -->
     <section class="section plan-section" id="plan">

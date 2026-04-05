@@ -75,13 +75,11 @@ h1, h2, h3 {
     z-index: -1;
 }
 
-@media (max-width: 768px) {
-    .hero-video {
-        /* On narrow screens, contain might be better for some aspect ratios, 
-           but cover with center position is usually what's requested. */
-        object-fit: cover;
-    }
-}
+
+
+
+
+
 
 
 .hero-overlay {
@@ -104,11 +102,8 @@ h1, h2, h3 {
     padding: 0 20px;
 }
 
-@media (max-width: 768px) {
-    .hero-content {
-        margin-top: 40vh; /* Slightly higher on mobile to center content */
-    }
-}
+
+
 
 
 .hero-interactive-group {
@@ -131,13 +126,8 @@ h1, h2, h3 {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (max-width: 768px) {
-    .hero-subtitle {
-        font-size: 0.75rem;
-        letter-spacing: 0.4rem;
-        width: 100%;
-    }
-}
+
+
 
 
 /* --- Hero Glass Button --- */
@@ -158,14 +148,8 @@ h1, h2, h3 {
                 box-shadow 0.3s;
 }
 
-@media (max-width: 768px) {
-    .btn-hero-gallery {
-        padding: 12px 24px;
-        font-size: 0.65rem;
-        letter-spacing: 0.25rem;
-        margin-top: 15px;
-    }
-}
+
+
 
 
 /* Group Hover Animation (The "Stationary Hit-box" Fix) */
@@ -205,12 +189,9 @@ h1, h2, h3 {
     text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
-    .section-header h2 {
-        font-size: 1.2rem;
-        letter-spacing: 0.2em;
-    }
-}
+
+
+
 
 
 .section-header p {
@@ -227,10 +208,12 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 5%;
-    overflow-x: auto; /* Allow horizontal panning on mobile */
-    -webkit-overflow-scrolling: touch;
+    padding: 20px 5%;
 }
+
+
+
+
 
 
 .plan-wrapper {
@@ -245,11 +228,11 @@ h1, h2, h3 {
     will-change: transform, filter; /* Hardware Acceleration */
 }
 
-@media (max-width: 768px) {
-    .plan-wrapper {
-        min-width: 1000px; /* Force overflow for better detail on mobile */
-    }
-}
+
+
+
+
+
 
 .plan-wrapper.diving {
     transform: scale(1.15) translateZ(50px);
@@ -287,13 +270,8 @@ h1, h2, h3 {
     will-change: transform, opacity; /* GPU Offload */
 }
 
-@media (max-width: 768px) {
-    .camera-marker {
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
-    }
-}
+
+
 
 
 .camera-marker:hover, .camera-marker:active {
@@ -323,11 +301,8 @@ h1, h2, h3 {
     animation: radarPulse 1.5s infinite;
 }
 
-@media (hover: none) {
-    .radar-ping {
-        animation: radarPulse 2s infinite; /* Always ping on mobile */
-    }
-}
+
+
 
 
 @keyframes radarPulse {
@@ -366,13 +341,8 @@ h1, h2, h3 {
     transform: translateX(-50%) translateY(0) scale(1);
 }
 
-@media (max-width: 768px) {
-    .peek-thumbnail {
-        width: 140px;
-        height: 85px;
-        bottom: 55px; /* Higher to clear fingers */
-    }
-}
+
+
 
 
 /* Dynamic FOV Activation (Flashlight Effect) */
@@ -399,13 +369,12 @@ h1, h2, h3 {
 
 
 .watermark-section#intro {
-    background: url('image/section.png') no-repeat center center;
-    background-size: cover;
+    background: var(--bg-dark); /* Solid background, image is now in <img> tag */
     position: relative;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 60px;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove padding to let container fill space */
     overflow: hidden;
     perspective: 1200px;
     transform-style: preserve-3d;
@@ -415,15 +384,28 @@ h1, h2, h3 {
     scroll-snap-align: start;
 }
 
-@media (max-width: 768px) {
-    .watermark-section#intro {
-        background-size: contain;
-        background-position: center bottom;
-        padding: 30px;
-        align-items: center;
-        justify-content: center;
-    }
+/* NEW Relative Wrapper for synchronization */
+.intro-render-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.intro-render-img {
+    width: 100%;
+    max-width: 1200px; /* Cap for desktop */
+    height: auto;
+    display: block;
+}
+
+
+
+
+
+
 
 
 /* Volumetric Dust Overlay (No Hijack) */
@@ -692,11 +674,100 @@ html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Responsive --- */
-@media (max-width: 1024px) {
+
+/* --- COMPREHENSIVE MOBILE RESPONSIVENESS (768px and below) --- */
+@media screen and (max-width: 768px) {
+    /* Global Section Behavior */
+    .section {
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+
+    /* Page 1: Hero Video (Strict Letterboxing) */
+    .hero { 
+        background: #000 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .hero-video {
+        position: relative !important;
+        width: 100vw !important;
+        height: auto !important;
+        max-height: 100vh !important;
+        object-fit: contain !important;
+        top: unset !important;
+        left: unset !important;
+        transform: none !important;
+        display: block !important;
+    }
+    .hero-content {
+        position: absolute !important;
+        bottom: 15% !important;
+        width: 100% !important;
+        padding: 0 20px !important;
+        margin-top: 0 !important;
+    }
+    .hero-subtitle { font-size: 0.7rem !important; letter-spacing: 0.3rem !important; }
+    .btn-hero-gallery { padding: 12px 24px !important; font-size: 0.65rem !important; }
+
+    /* Page 2: 3D Model Intro (Tag Synchronization) */
+    .watermark-section#intro {
+        background: #000 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .intro-render-wrapper {
+        position: relative !important;
+        width: 100vw !important;
+        height: auto !important;
+        display: block !important;
+        line-height: 0 !important;
+    }
+    .intro-render-img {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+    }
+    .arch-tag { transform: scale(0.7) !important; }
+    .arch-tag.t1 { top: 48.5% !important; left: 44.5% !important; }
+    .arch-tag.t2 { top: 47.0% !important; left: 20.0% !important; }
+    .arch-tag.t3 { top: 86.0% !important; left: 60.0% !important; }
+    .arch-tag.t4 { top: 35.0% !important; left: 50.0% !important; }
+
+    /* Page 3: Floor Plan (Fit-to-Width, No Scroll) */
+    .plan-section { 
+        padding: 40px 0 !important; 
+        height: auto !important; 
+        min-height: 100vh !important;
+    }
+    .plan-interactive-container { 
+        padding: 10px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .plan-wrapper {
+        width: 100% !important;
+        min-width: 0 !important;
+        transform: none !important;
+    }
+    .plan-img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+    .camera-marker { width: 32px !important; height: 32px !important; font-size: 0.8rem !important; }
+    .section-header h2 { font-size: 0.85rem !important; letter-spacing: 0.15em !important; }
+}
+
+@media screen and (max-width: 1024px) {
     .glass-container { flex-direction: column; }
     .glass-box { width: 100%; min-height: auto; }
-    .watermark-title { font-size: 20vw; }
-    .prev { left: 10px; }
-    .next { right: 10px; }
+    .watermark-title { font-size: 15vw !important; }
 }
+
+
