@@ -27,6 +27,7 @@ body {
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    touch-action: pan-y;
 }
 
 h1, h2, h3 {
@@ -150,20 +151,21 @@ h1, h2, h3 {
 }
 
 .section-header h2 {
-    font-size: 1.1rem; /* Minimal size like hero subtitle */
-    color: #ffffff;   /* Pure white minimalism */
-    margin-bottom: 12px;
-    letter-spacing: 0.8rem;
+    font-size: 0.95rem; /* Minimal size like hero subtitle */
+    color: #e5e5e5;    /* Muted stone-200 */
+    margin-bottom: 15px;
+    letter-spacing: 0.35em;
     font-weight: 300;
+    text-transform: uppercase;
 }
 
 .section-header p {
-    color: var(--text-secondary);
+    color: #78716c; /* Muted stone-500 */
     font-weight: 300;
     font-size: 0.85rem;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-    opacity: 0.6;
+    letter-spacing: 0.05rem;
+    text-transform: none;
+    opacity: 0.8;
 }
 
 .plan-interactive-container {
@@ -182,6 +184,7 @@ h1, h2, h3 {
     border-radius: 10px;
     transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
                 filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, filter; /* Hardware Acceleration */
 }
 
 .plan-wrapper.diving {
@@ -215,6 +218,7 @@ h1, h2, h3 {
     font-weight: 700;
     font-size: 0.8rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    will-change: transform, opacity; /* GPU Offload */
 }
 
 .camera-marker:hover {
@@ -339,6 +343,7 @@ h1, h2, h3 {
     transform: translateY(20px);
     animation: tagReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
                tagBob 4s ease-in-out infinite alternate;
+    will-change: transform, opacity;
 }
 
 /* Updated Pin Coordinates */

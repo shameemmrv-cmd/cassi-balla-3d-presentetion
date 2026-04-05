@@ -159,7 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: `${posY}%`,
                 opacity: opacity,
                 filter: `blur(${blur}px)`,
-                animation: `dustFloat ${duration}s linear ${delay}s infinite alternate`
+                animation: `dustFloat ${duration}s linear ${delay}s infinite alternate`,
+                willChange: 'transform, opacity'
             });
 
             dustOverlay.appendChild(particle);
