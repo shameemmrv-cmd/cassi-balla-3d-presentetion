@@ -36,6 +36,14 @@ h1, h2, h3 {
     letter-spacing: 0.2rem;
 }
 
+/* Base Responsive Typography */
+:root {
+    --fs-h1: clamp(2rem, 8vw, 4rem);
+    --fs-h2: clamp(1.2rem, 5vw, 2.5rem);
+    --fs-p: clamp(0.85rem, 2vw, 1rem);
+}
+
+
 .section {
     height: 100vh;
     width: 100%;
@@ -63,8 +71,18 @@ h1, h2, h3 {
     height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
+    object-position: center; /* Ensure subject stays centered */
     z-index: -1;
 }
+
+@media (max-width: 768px) {
+    .hero-video {
+        /* On narrow screens, contain might be better for some aspect ratios, 
+           but cover with center position is usually what's requested. */
+        object-fit: cover;
+    }
+}
+
 
 .hero-overlay {
     position: absolute;
@@ -82,7 +100,16 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 0 20px;
 }
+
+@media (max-width: 768px) {
+    .hero-content {
+        margin-top: 40vh; /* Slightly higher on mobile to center content */
+    }
+}
+
 
 .hero-interactive-group {
     display: flex;
@@ -104,6 +131,15 @@ h1, h2, h3 {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (max-width: 768px) {
+    .hero-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 0.4rem;
+        width: 100%;
+    }
+}
+
+
 /* --- Hero Glass Button --- */
 .btn-hero-gallery {
     background: rgba(255, 255, 255, 0.05);
@@ -121,6 +157,16 @@ h1, h2, h3 {
                 border-color 0.3s, 
                 box-shadow 0.3s;
 }
+
+@media (max-width: 768px) {
+    .btn-hero-gallery {
+        padding: 12px 24px;
+        font-size: 0.65rem;
+        letter-spacing: 0.25rem;
+        margin-top: 15px;
+    }
+}
+
 
 /* Group Hover Animation (The "Stationary Hit-box" Fix) */
 .hero-interactive-group:hover .hero-subtitle {
@@ -151,13 +197,21 @@ h1, h2, h3 {
 }
 
 .section-header h2 {
-    font-size: 0.95rem; /* Minimal size like hero subtitle */
+    font-size: var(--fs-h2); /* Responsive size */
     color: #e5e5e5;    /* Muted stone-200 */
     margin-bottom: 15px;
     letter-spacing: 0.35em;
     font-weight: 300;
     text-transform: uppercase;
 }
+
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 1.2rem;
+        letter-spacing: 0.2em;
+    }
+}
+
 
 .section-header p {
     color: #78716c; /* Muted stone-500 */
@@ -174,11 +228,15 @@ h1, h2, h3 {
     align-items: center;
     justify-content: center;
     padding: 40px 5%;
+    overflow-x: auto; /* Allow horizontal panning on mobile */
+    -webkit-overflow-scrolling: touch;
 }
+
 
 .plan-wrapper {
     position: relative;
     max-width: 1200px;
+    min-width: 800px; /* Ensure plan doesn't get too small to interact with */
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
     background: #fff;
     border-radius: 10px;
@@ -187,23 +245,31 @@ h1, h2, h3 {
     will-change: transform, filter; /* Hardware Acceleration */
 }
 
+@media (max-width: 768px) {
+    .plan-wrapper {
+        min-width: 1000px; /* Force overflow for better detail on mobile */
+    }
+}
+
 .plan-wrapper.diving {
     transform: scale(1.15) translateZ(50px);
     filter: blur(8px) brightness(0.6);
 }
 
+
 .plan-img {
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 10px;
 }
 
+
 /* --- Camera Markers (Advanced Micro-interactions) --- */
 .camera-marker {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     background: rgba(231, 76, 60, 0.9);
     color: #fff;
     border-radius: 4px;
@@ -216,17 +282,27 @@ h1, h2, h3 {
     border: 2px solid #fff;
     z-index: 10;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     will-change: transform, opacity; /* GPU Offload */
 }
 
-.camera-marker:hover {
-    transform: translate(-50%, -50%) scale(1.2) rotate(5deg);
+@media (max-width: 768px) {
+    .camera-marker {
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+    }
+}
+
+
+.camera-marker:hover, .camera-marker:active {
+    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
     background: #fff;
     color: var(--accent-red);
     z-index: 100;
 }
+
 
 /* Radar Ping Animation */
 .radar-ping {
@@ -242,9 +318,17 @@ h1, h2, h3 {
     pointer-events: none;
 }
 
-.camera-marker:hover .radar-ping {
+.camera-marker:hover .radar-ping,
+.camera-marker:active .radar-ping {
     animation: radarPulse 1.5s infinite;
 }
+
+@media (hover: none) {
+    .radar-ping {
+        animation: radarPulse 2s infinite; /* Always ping on mobile */
+    }
+}
+
 
 @keyframes radarPulse {
     0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
@@ -276,10 +360,20 @@ h1, h2, h3 {
     object-fit: cover;
 }
 
-.camera-marker:hover .peek-thumbnail {
+.camera-marker:hover .peek-thumbnail,
+.camera-marker:active .peek-thumbnail {
     opacity: 1;
     transform: translateX(-50%) translateY(0) scale(1);
 }
+
+@media (max-width: 768px) {
+    .peek-thumbnail {
+        width: 140px;
+        height: 85px;
+        bottom: 55px; /* Higher to clear fingers */
+    }
+}
+
 
 /* Dynamic FOV Activation (Flashlight Effect) */
 .camera-marker::after {
@@ -297,10 +391,12 @@ h1, h2, h3 {
     z-index: -2;
 }
 
-.camera-marker:hover::after {
+.camera-marker:hover::after,
+.camera-marker:active::after {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
 }
+
 
 .watermark-section#intro {
     background: url('image/section.png') no-repeat center center;
@@ -318,6 +414,17 @@ h1, h2, h3 {
     transform: rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
     scroll-snap-align: start;
 }
+
+@media (max-width: 768px) {
+    .watermark-section#intro {
+        background-size: contain;
+        background-position: center bottom;
+        padding: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 
 /* Volumetric Dust Overlay (No Hijack) */
 .dust-overlay {
@@ -346,11 +453,26 @@ h1, h2, h3 {
     will-change: transform, opacity;
 }
 
-/* Updated Pin Coordinates */
+/* Updated Pin Coordinates for Desktop (keeping existing) */
 .arch-tag.t1 { top: 48.5%; left: 44.5%; animation-delay: 0.2s, 1.2s; } /* TV UNIT AREA */
 .arch-tag.t2 { top: 47.0%; left: 20.0%; animation-delay: 0.4s, 1.4s; } /* DINING AREA */
 .arch-tag.t3 { top: 86.0%; left: 60.0%; animation-delay: 0.6s, 1.6s; } /* ENTRANCE */
 .arch-tag.t4 { top: 35.0%; left: 50.0%; animation-delay: 0.8s, 1.8s; } /* MAJLIS */
+
+@media (max-width: 768px) {
+    .arch-tag.t1 { top: 45%; left: 40%; }
+    .arch-tag.t2 { top: 42%; left: 15%; }
+    .arch-tag.t3 { top: 75%; left: 55%; }
+    .arch-tag.t4 { top: 30%; left: 45%; }
+    
+    .tag-line { height: 25px; }
+    .tag-label { 
+        font-size: 0.55rem; 
+        letter-spacing: 0.2rem; 
+        padding: 4px 10px;
+    }
+}
+
 
 @keyframes tagReveal {
     from { opacity: 0; transform: translateY(20px); }

@@ -114,7 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dustOverlay = document.querySelector('.dust-overlay');
 
     if (introSection) {
-        introSection.addEventListener('mousemove', (e) => {
+        // Only run parallax on devices with a mouse
+        const handleMouseMove = (e) => {
             const { width, height, left, top } = introSection.getBoundingClientRect();
             const x = e.clientX - left;
             const y = e.clientY - top;
@@ -127,13 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             introSection.style.setProperty('--rotate-x', `${rotateX}deg`);
             introSection.style.setProperty('--rotate-y', `${rotateY}deg`);
-        });
+        };
 
-        introSection.addEventListener('mouseleave', () => {
-            introSection.style.setProperty('--rotate-x', '0deg');
-            introSection.style.setProperty('--rotate-y', '0deg');
-        });
+        if (window.matchMedia('(hover: hover)').matches) {
+            introSection.addEventListener('mousemove', handleMouseMove);
+            introSection.addEventListener('mouseleave', () => {
+                introSection.style.setProperty('--rotate-x', '0deg');
+                introSection.style.setProperty('--rotate-y', '0deg');
+            });
+        }
     }
+
 
     // Procedural Dust Generator
     if (dustOverlay) {
